@@ -1,0 +1,28 @@
+body {	padding-top: 50px;}.starter-template {	padding: 40px 15px; text-align: center;}
+
+#dimensions {
+	width: 100px;
+	/*margin-left: 25%;*/
+}
+
+#withPadding {
+	padding-left: 60px;
+}
+
+#userInput {
+	text-align: center;
+}
+
+#submit {
+	width: 50%;
+	margin: 0 auto;
+	background-color: #f5f5f5;
+}
+
+#submit:hover {
+	background-color: #ccc;
+}
+
+#dimensionText {
+	text-align: center;
+}

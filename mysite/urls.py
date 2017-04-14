@@ -22,3 +22,6 @@ urlpatterns = [
     url(r'^personal/', include('personal.urls')),
     url(r'^personal/blog/', include('blog.urls')),
 ]
+
+# from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# urlpatterns +=
