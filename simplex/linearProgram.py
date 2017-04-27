@@ -1,6 +1,7 @@
 class LinearProgram:
 
-    def __init__(self, obj, matrix, ineq, b, vars):
+    def __init__(self, type, obj, matrix, ineq, b, vars):
+        self.type = type
         self.obj = obj
         self.matrix = matrix
         self.ineq = ineq
