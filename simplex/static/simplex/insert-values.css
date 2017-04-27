@@ -1,0 +1,67 @@
+body {  padding-top: 50px;}.starter-template {  padding: 40px 15px; text-align: center;}
+
+    .form-control {
+        border: none;
+        width: 45px;
+    }
+
+    .form-control:hover, .form-control:focus {
+        border-color: #00abff;
+        border: 1px solid #00abff;
+        border-radius: 5px;
+    }
+
+    .matrix:before, .matrix:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        border: 4px solid #000;
+        width: 20px;
+        height: 100%;
+    }
+
+    .matrix:before {
+        
+        left: -6px;
+        border-right: 0px;
+    }
+
+    .matrix:after {
+        right: -6px;
+        border-left: 0px;
+    }
+
+    .table td, .table tr {
+        align-content: center;
+        border: none;
+        border-top: none !important;
+        border-left: none !important;
+        padding:0; 
+        margin:0;
+    }
+
+    .vector:before, .vector:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        border: 4px solid #000;
+        width: 20px;
+        height: 100%;
+    }
+
+    .vector:before {
+        left: -6px;
+        border-right: 0px;
+    }
+
+    .vector:after {
+        right: -6px;
+        border-left: 0px;
+    }
+
+    .table {
+        display: inline-block;
+        margin: 10px;
+        position: relative;
+        width: auto;
+    }
