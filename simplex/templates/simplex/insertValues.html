@@ -23,116 +23,37 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'simplex/starter-template.css' %}" rel="stylesheet">
     <link href="{% static 'simplex/insert-values.css' %}" rel="stylesheet">
-
-    <script type="text/javascript" async
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 </head>
-<style>
 
-
-</style>
 <body>
 
-    <div class="container">
         <div class="table-responsive starter-template">
-            <table class="table matrix">
+            <table class="table matrix" id="matrix">
                 <tbody>
+                    {% block content %}
+                        {% for row in rows %}
                     <tr>
+                        {% for col in cols %}
                         <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
+                        {% endfor %}
                     </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-
+                        {% endfor %}
+                    
                 </tbody>
             </table>
-            <table class="table vector">
+            <table class="table vector" id="x_var">
                 <tbody>
+                        {% for col in cols %}
                     <tr>
                         <td><input type="text" class="form-control" /></td>
                     </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
+                        {% endfor %}
                 </tbody>
             </table>
             <table class="table inequalities">
                 <tbody>
+                    {% for row in rows %}
                     <tr>
                         <td>
                             <select class="form-control">
@@ -142,65 +63,19 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
-            </table>
                         <table class="table vector">
                 <tbody>
+                        {% for row in rows %}
                     <tr>
                         <td><input type="text" class="form-control" /></td>
                     </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="form-control" /></td>
-                    </tr>
+                        {% endfor %}
+                    {% endblock %}
                 </tbody>
             </table>
         </div>
-    </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
