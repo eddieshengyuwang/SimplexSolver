@@ -4,28 +4,29 @@ from linearProgram import LinearProgram
 
 type = 'min'
 obj1 = np.array([ [1],[1], [-4], [-9] ])
-matrix1 = np.array([ [-1,0,2,5], [2,-3,4,-3] ])
+matrix1 = np.array([ [-1,0,2,5], [2,-3,4,-3], [-1,9,-5,7], [-1,-3,4,-9] ])
 ineq1 = np.array([ ['&le;'], ['&ge;'], ['&ge;'], ['='] ])
-b1 = np.array([ [10,5] ])
+b1 = np.array([ [10],[5],[-7],[0] ])
 vars1 = np.array([ ['&ge; 0'], ['free'], ['&le; 0'], ['free'] ])
 #vars1 = np.array([ ['free'], ['free'], ['free'], ['free'] ])
 #vars1 = np.array([ ['free'], ['free'], ['free'], ['free'] ])
 LP1 = LinearProgram(type, obj1, matrix1, ineq1, b1, vars1)
 def sef(lp):
-    #pdb.set_trace()
+    #pdb.set_trace();
 
-    vector_col = lp.obj.shape[0]
+    c_rows = lp.obj.shape[0]
+    m_rows = lp.matrix.shape[0]
     
-    #converting obj to be all positive
+    #converting obj to be max
     if lp.type == 'min':
-        for i in range(vector_col):
+        lp.type = 'max'
+        for i in range(c_rows):
             if lp.obj[i,0] < 0:
                 lp.obj[i,0] = -lp.obj[i,0]
-    #LP vars
-    print(lp.obj)
-    i = vector_col-1
+                
+    #converting variables <= 0 or free to be >= in vars
+    i = c_rows-1
     while i >= 0:
-#    for i in range(vector_col):
         if lp.vars[i,0] == 'free':
             lp.vars[i,0] = '&ge; 0'
             matrix_col = lp.matrix[:,i]
@@ -33,8 +34,8 @@ def sef(lp):
             for j in range(matrix_col.shape[0]):
                new_col[j] = -matrix_col[j]
                
-            lp.matrix = np.insert(lp.matrix, i, new_col, 1)           
-            lp.obj = np.insert(lp.obj, i, -lp.obj[i], 0)
+            lp.matrix = np.insert(lp.matrix, i+1, new_col, 1)           
+            lp.obj = np.insert(lp.obj, i+1, -lp.obj[i], 0)
             
         elif lp.vars[i,0] == '&le; 0':
             lp.vars[i,0] = '&ge; 0'
@@ -44,8 +45,38 @@ def sef(lp):
             lp.obj[i] = -lp.obj[i]
             
         i = i - 1
-        print(lp.matrix)
     
-    return [lp.obj, lp.matrix]
+    #converting inequalities >= and <= to be = in ineq
+    m = 0
+    for i in lp.ineq:
+        zero_vector = np.zeros(m_rows)
+        if i == '&le;':
+            i = '='
+            zero_vector[m] = 1
+            lp.matrix = np.c_[lp.matrix, zero_vector]
+            lp.obj = np.append(lp.obj, [[0]], axis=0)
+            m = m + 1
+        elif i == '&ge;':
+            i = '='
+            zero_vector[m] = -1
+            lp.matrix = np.c_[lp.matrix, zero_vector]
+            lp.obj = np.append(lp.obj, [[0]], axis=0)
+            m = m + 1
+            
+#    print(lp.obj)
+#    print(lp.matrix)
+#    print(lp.ineq)
+#    print(lp.b)
+#    print(lp.vars)
+    
+    return lp
 
-print(sef(LP1))
+def print_sef(lp):
+    print(lp.type)
+    print(lp.obj)
+    print(lp.matrix)
+    print(lp.ineq)
+    print(lp.b)
+    print(lp.vars)
+
+
