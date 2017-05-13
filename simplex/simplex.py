@@ -2,15 +2,15 @@ import pdb
 import numpy as np
 from linearProgram import LinearProgram
 
-type = 'min'
-obj1 = np.array([ [1],[1], [-4], [-9] ])
-matrix1 = np.array([ [-1,0,2,5], [2,-3,4,-3], [-1,9,-5,7], [-1,-3,4,-9] ])
-ineq1 = np.array([ ['&le;'], ['&ge;'], ['&ge;'], ['='] ])
-b1 = np.array([ [10],[5],[-7],[0] ])
-vars1 = np.array([ ['&ge; 0'], ['free'], ['&le; 0'], ['free'] ])
-#vars1 = np.array([ ['free'], ['free'], ['free'], ['free'] ])
-#vars1 = np.array([ ['free'], ['free'], ['free'], ['free'] ])
-LP1 = LinearProgram(type, obj1, matrix1, ineq1, b1, vars1)
+#type = 'min'
+#obj1 = np.array([ [1],[1], [-4], [-9] ])
+#matrix1 = np.array([ [-1,0,2,5], [2,-3,4,-3], [-1,9,-5,7], [-1,-3,4,-9] ])
+#ineq1 = np.array([ ['&le;'], ['&ge;'], ['&ge;'], ['='] ])
+#b1 = np.array([ [10],[5],[-7],[0] ])
+#vars1 = np.array([ ['&ge; 0'], ['free'], ['&le; 0'], ['free'] ])
+##vars1 = np.array([ ['free'], ['free'], ['free'], ['free'] ])
+##vars1 = np.array([ ['free'], ['free'], ['free'], ['free'] ])
+#LP1 = LinearProgram(type, obj1, matrix1, ineq1, b1, vars1)
 def sef(lp):
     #pdb.set_trace();
 
@@ -21,8 +21,7 @@ def sef(lp):
     if lp.type == 'min':
         lp.type = 'max'
         for i in range(c_rows):
-            if lp.obj[i,0] < 0:
-                lp.obj[i,0] = -lp.obj[i,0]
+            lp.obj[i,0] = -lp.obj[i,0]
                 
     #converting variables <= 0 or free to be >= in vars
     i = c_rows-1
@@ -36,6 +35,7 @@ def sef(lp):
                
             lp.matrix = np.insert(lp.matrix, i+1, new_col, 1)           
             lp.obj = np.insert(lp.obj, i+1, -lp.obj[i], 0)
+            lp.vars = np.insert(lp.vars, i+1, '&ge; 0', 0)
             
         elif lp.vars[i,0] == '&le; 0':
             lp.vars[i,0] = '&ge; 0'
@@ -50,18 +50,18 @@ def sef(lp):
     m = 0
     for i in lp.ineq:
         zero_vector = np.zeros(m_rows)
-        if i == '&le;':
-            i = '='
-            zero_vector[m] = 1
+        if i != '=':
+            if i == '&le;':
+                zero_vector[m] = 1
+            else:
+                zero_vector[m] = -1
             lp.matrix = np.c_[lp.matrix, zero_vector]
             lp.obj = np.append(lp.obj, [[0]], axis=0)
-            m = m + 1
-        elif i == '&ge;':
-            i = '='
-            zero_vector[m] = -1
-            lp.matrix = np.c_[lp.matrix, zero_vector]
-            lp.obj = np.append(lp.obj, [[0]], axis=0)
-            m = m + 1
+            lp.vars = np.append(lp.vars, [['&ge; 0']], axis=0)
+            m = m + 1    
+    #pdb.set_trace()
+    for i in range(m_rows):
+        lp.ineq[i,0] = '='
             
 #    print(lp.obj)
 #    print(lp.matrix)
